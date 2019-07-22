@@ -1,5 +1,5 @@
 import sys
-from ingest_data import FlightDataIngest
+from ingest_data import DataIngester
 import pyspark.sql.session as session
 
 
@@ -19,7 +19,7 @@ class Executor:
         return session.SparkSession.Builder().appName(app_name).master(master).getOrCreate()
 
     def ingest_flight(self, *params):
-        FlightDataIngest().ingest_data(input_path=params[0], input_format=params[1], output_path=params[2],
+        DataIngester().ingest_data(input_path=params[0], input_format=params[1], output_path=params[2],
                                               output_format=params[3], write_mode=params[4],
                                               spark=self.get_spark_session("Ingest Flight Data"))
 
