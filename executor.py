@@ -1,5 +1,6 @@
 import sys
-from ingest_data import DataIngester
+from extract import DataManager
+from transform import FlightDataManager
 import pyspark.sql.session as session
 
 
@@ -18,10 +19,16 @@ class Executor:
         """
         return session.SparkSession.Builder().appName(app_name).master(master).getOrCreate()
 
+    def show_schema(self, input_path, input_format, header=True):
+        data_frame = self.get_spark_session(f'Showing schema for {input_path}').read.format(input_format).option(
+            "header", header).load(f"{input_path}")
+        data_frame.printSchema()
+
     def ingest_data(self, *params):
-        DataIngester().ingest_data(input_path=params[0], input_format=params[1], output_path=params[2],
-                                   output_format=params[3], write_mode=params[4],
-                                   spark=self.get_spark_session("Ingest Flight Data"))
+        DataManager().ingest_data(self.get_spark_session(f"Ingesting Data from {params[0]}"), *params)
+
+    def clean_flight_data(self, *params):
+        FlightDataManager().clean_flight_data(self.get_spark_session(f"Flight Quality Check : {path}"), params)
 
 
 if __name__ == "__main__":
