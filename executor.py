@@ -1,6 +1,6 @@
 import sys
 from extract import DataManager
-from transform import FlightDataManager
+from transform import FlightDataManager, AircraftManager
 import pyspark.sql.session as session
 
 
@@ -28,7 +28,13 @@ class Executor:
         DataManager().ingest_data(self.get_spark_session(f"Ingesting Data from {params[0]}"), *params)
 
     def clean_flight_data(self, *params):
-        FlightDataManager().clean_flight_data(self.get_spark_session(f"Flight Quality Check : {path}"), params)
+        FlightDataManager().clean_flight_data(self.get_spark_session(f"Flight data cleaning: {params[0]}"), *params)
+
+    def clean_aircraft_data(self, *params):
+        AircraftManager().clean_aircraft_data(self.get_spark_session(f"Aircraft data cleaning: {params[0]}"), *params)
+
+    def enhance_flight_data(self, *params):
+        FlightDataManager().enhance_flight_details(self.get_spark_session('Enhancing Flight details'), *params)
 
 
 if __name__ == "__main__":
