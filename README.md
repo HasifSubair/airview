@@ -1,6 +1,6 @@
 # AirView
 
-### Introduction
+## Introduction
 
 The U.S. Department of Transportation's (DOT) Bureau of Transportation Statistics (BTS) tracks the on-time performance 
 of domestic flights operated by large air carriers. Summary information on the number of on-time, delayed, canceled and 
@@ -18,9 +18,34 @@ AirView project enhances the flight data by adding information on the Airports, 
 The datasets are combined and stored in a de-normalized format as parquet files in S3 or HDFS any file system.
 
 
-### Data Sets
+## Data Sets
 
-#### Flights
+### Flights on-time performance data
+
+Carriers that have 0.5 percent of total domestic scheduled-service passenger revenue must report on-time data and the 
+causes of delay. Since June 2003, the airlines that report on-time data also report the causes of delays and cancellations to the Bureau 
+of Transportation Statistics. Reported causes of delay are available from June 2003 to the most recent month. 
+
+The airlines report the causes of delay in broad categories that were created by the Air Carrier On-Time Reporting 
+Advisory Committee.  The categories are Air Carrier, National Aviation System, Weather, Late-Arriving Aircraft and 
+Security.  The causes of cancellation are the same, except there is no late-arriving aircraft category.
+
+**How are these delay categories defined?**
+
+* **Air Carrier:** The cause of the cancellation or delay was due to circumstances within the airline's control (e.g. 
+maintenance or crew problems, aircraft cleaning, baggage loading, fueling, etc.).
+* **Extreme Weather:** Significant meteorological conditions (actual or forecasted) that, in the judgment of the 
+carrier, delays or prevents the operation of a flight such as tornado, blizzard or hurricane.
+* **National Aviation System (NAS):** Delays and cancellations attributable to the national aviation system that refer 
+to a broad set of conditions, such as non-extreme weather conditions, airport operations, heavy traffic volume, and air 
+traffic control.
+* **Late-arriving aircraft:** A previous flight with same aircraft arrived late, causing the present flight to depart 
+late.
+* **Security:** Delays or cancellations caused by evacuation of a terminal or concourse, re-boarding of aircraft because
+ of security breach, inoperative screening equipment and/or long lines in excess of 29 minutes at screening areas.
+ 
+ [Source](https://www.bts.gov/topics/airlines-and-airports/understanding-reporting-causes-flight-delays-and-cancellations)
+
 | Columns | Data Type | Description | Nullable |
 | ------------- |:-------------|:-------------|:-------------|
 |Year | Integer | 1987-2008| False |
@@ -54,6 +79,3 @@ The datasets are combined and stored in a de-normalized format as parquet files 
 |LateAircraftDelay | String | in minutes| True |
 
 
-
-
-The dataset can be later combined with weather and aircraft repair data to predict aircraft repair cycles.
