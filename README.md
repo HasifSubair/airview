@@ -206,4 +206,4 @@ works very efficiently with spark.
 
 ### Running the application
 
-![](https://github.com/hasifsubair/airview/tree/dev/images/pipeline.png "Logo Title Text 1")
+![](/images/pipeline.png "Logo Title Text 1")
