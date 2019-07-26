@@ -40,6 +40,7 @@ class Executor:
         data_frame = self.get_spark_session(f'Showing schema for {input_path}').read.format(input_format).option(
             "header", header).load(f"{input_path}")
         data_frame.printSchema()
+        data_frame.show(5, False)
 
     def ingest_data(self, *params):
         """
