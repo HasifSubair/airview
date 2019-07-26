@@ -79,7 +79,8 @@ class DataManager:
         :param number_of_rows: Number of rows to be printed out.
         :return: NoneType
         """
-        number_of_rows = number_of_rows if number_of_rows < 100 else 100
+        number_of_rows = int(number_of_rows)
+        number_of_rows = number_of_rows if number_of_rows <= 100 else 100
         data_frame = self.read_data(spark, source, format)
         data_frame.createOrReplaceTempView(table_name)
         data_frame = spark.sql(query)
