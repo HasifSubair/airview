@@ -48,3 +48,39 @@ class DataManager:
         """
         data_frame: DataFrame = self.read_data(spark, input_path, input_format)
         self.write_data(data_frame, output_path, output_format, write_mode)
+
+    def record_count_check(self, spark: SparkSession, source_path, source_format, destination_path, destination_format):
+        """
+        Method checks the record count at source with record count at the destination. Raises ValueError, if the record
+        counts doesn't match.
+        :param spark: SparkSession instance.
+        :param input_path: The input file/folder path.
+        :param input_format: The input file format.
+        :param output_path: The output file/folder path.
+        :param output_format: The output file format.
+        :return: NoneType.
+        :raises ValueError, if the source and destination record counts doesn't match.
+        """
+        source_count = self.read_data(spark, source_path, source_format).count()
+        destination_count = self.read_data(spark, destination_path, destination_format).count()
+        print(source_count, destination_count)
+        if not source_count == destination_count:
+            raise ValueError("Source and destination record count doesn't match.")
+
+    def run_query(self, spark: SparkSession, source, format, table_name, query, number_of_rows):
+        """
+        Method runs dynamic spark queries against source files. It create temporary tables from the source files and
+        eacecute queries against it. Number of rows is restricted to maximum of 100.
+        :param spark: SparkSession instance.
+        :param source: Source files path.
+        :param format: Source file format.
+        :param table_name: Temporary table name.
+        :param query: Query to be run against the temporary table.
+        :param number_of_rows: Number of rows to be printed out.
+        :return: NoneType
+        """
+        number_of_rows = number_of_rows if number_of_rows < 100 else 100
+        data_frame = self.read_data(spark, source, format)
+        data_frame.createOrReplaceTempView(table_name)
+        data_frame = spark.sql(query)
+        data_frame.show(number_of_rows, False)

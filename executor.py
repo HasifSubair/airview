@@ -81,6 +81,23 @@ class Executor:
         """
         FlightManager().enhance_flight_details(self.get_spark_session('Enhancing Flight details'), *params)
 
+    def quality_check(self, *params):
+        """
+        Method runs quality checks agianst the source and ingested data.
+        :param params: Parameters to source and ingested data.
+        :return: NoneType.
+        :raises: ValueError, if source and destination data doesn't match.
+        """
+        DataManager().record_count_check(self.get_spark_session(f'Quality Check for {params[0]}'), *params)
+
+    def run_query(self, *params):
+        """
+        Method runs dynamic spark sql queries against the file. Number of rows is limited to 100.
+        :param params: Parameter for creating the temp table
+        :return: NoneType.
+        """
+        DataManager().run_query(self.get_spark_session("Running Dynamic query"), *params)
+
 
 if __name__ == "__main__":
     # Getting the python arguments.
