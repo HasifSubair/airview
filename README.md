@@ -206,4 +206,64 @@ works very efficiently with spark.
 
 ### Running the application
 
-![](/images/pipeline.png "Logo Title Text 1")
+![](/images/pipeline.png)
+
+*Pipeline for running AirView project*
+
+#### Data ingestion
+Executor class had 'ingest_data' method, which reads files from the input file/location and writes to the ouput 
+location. To execute data ingestion task execute the below command.
+
+`python3 executor.py ingest_data <INPUT_PATH> <INPUT_FORMAT> <OUTPUT_PATH> <OUTPUT_FORMAT> <WRITE_MODE>`
+ 
+For example, for ingesting flight data from CSV format and overwrite the folder in parquet format.
+
+`python3 executor.py ingest_data <INPUT_FILE> csv <OUPUT_FOLDER> parquet overwrite`
+
+*Parameter WRITE_MODE is optional and is defaulted to 'error'.* 
+
+Different write modes are.
+
+1. 'append'     -   if data already exists, contents of the DataFrame are expected to be
+                                                appended to existing data.
+2. 'overwrite'  -   if data already exists, existing data is expected to be overwritten by
+                                                the contents of the DataFrame.
+3. 'error'      -   throws an error if data already exists.
+4. 'ignore'     -   if data already exists, the save operation is expected to not save the
+                                                contents of the DataFrame and to not change the existing data. 
+                                                
+#### Quality Check
+
+Executor class had 'check_quality' method, checks the record count from the source and destination folders. To execute 
+data quality check, execute the below command.
+
+`python3 executor.py check_quality <SOURCE_PATH> <SOURCE_FORMAT> <DESTINATION_PATH> <DESTINATION_FORMAT>`
+
+
+#### Clean flight data
+
+`python3 executor.py clean_flight_data <INPUT_PATH> <INPUT_FORMAT> <OUTPUT_PATH> <OUTPUT_FORMAT> <WRITE_MODE>`
+
+*Parameter WRITE_MODE is optional and is defaulted to 'error'.*
+
+#### Clean aircraft data
+
+`python3 executor.py clean_aircraft_data <INPUT_PATH> <INPUT_FORMAT> <OUTPUT_PATH> <OUTPUT_FORMAT> <WRITE_MODE>` 
+
+*Parameter WRITE_MODE is optional and is defaulted to 'error'.*
+
+#### Enhance flight data
+
+All input data set must be of parquet format.
+
+`python3 executor.py enhance_flight_data <CLEAN_FLIGHT_DATA_PATH> <CLEAN_AIRCRAFT_DATA_PATH> <AIRPORT_DATA_PATH> 
+<CARRIER_DATA_PATH> <OUTPUT_FOLDER>`
+
+#### Quality Check
+
+`python3 executor.py quality_check <SOURCE_DATA_PATH> <DESTINATION_DATA_PATH>`
+
+
+ 
+ 
+
