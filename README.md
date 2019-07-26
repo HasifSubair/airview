@@ -206,4 +206,4 @@ works very efficiently with spark.
 
 ### Running the application
 
-![](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![](https://github.com/HasifSubair/airview/tree/dev/images/pipeline.png)
