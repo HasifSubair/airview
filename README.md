@@ -8,11 +8,9 @@ diverted flights appears in DOT's monthly Air Travel Consumer Report, published 
 well as in summary tables posted on this website. Summary statistics and raw data are made available to the public at 
 the time the Air Travel Consumer Report is released.
 
-Source data can be found [here](http://stat-computing.org/dataexpo/2009/the-data.html)
+Source data can be found [here](http://stat-computing.org/dataexpo/2009/the-data.html) or from [here](https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp)
 
 Supplemental data for airport and carrier can be found [here](http://stat-computing.org/dataexpo/2009/supplemental-data.html)
-
-Aircraft details can be found [here](https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/)
 
 AirView project enhances the flight data by adding information on the Airports, Aircrafts and the Carrier information. 
 The datasets are combined and stored in a de-normalized format as parquet files in S3 or HDFS any file system.
@@ -43,8 +41,7 @@ traffic control.
 late.
 * **Security:** Delays or cancellations caused by evacuation of a terminal or concourse, re-boarding of aircraft because
  of security breach, inoperative screening equipment and/or long lines in excess of 29 minutes at screening areas.
- 
- [Source](https://www.bts.gov/topics/airlines-and-airports/understanding-reporting-causes-flight-delays-and-cancellations)
+
 
 | Columns | Data Type | Description | Nullable |
 | ------------- |:-------------|:-------------|:-------------|
@@ -77,5 +74,45 @@ late.
 |NASDelay | String |in minutes| True |
 |SecurityDelay | String | in minutes| True |
 |LateAircraftDelay | String | in minutes| True |
+
+### Airports
+
+Describes the locations of US airports. This majority of this data comes from the FAA, but a few extra airports 
+(mainly military bases and US protectorates) were collected from other web sources by Ryan Hafen and Hadley Wickham.
+
+| Columns | Data Type | Description | Nullable |
+| ------------- |:-------------|:-------------|:-------------|
+| iata | String | The international airport abbreviation code | False |
+| airport | String | Name of the airport | False |
+| city | String | City in which airport is located | False|
+| state | String | State in which airport is located | False |
+| country | String | Country in which airport is located | False |
+| lat | Float | Latitude of the airport| False |
+| long |Float | Longitude of the airport | False |
+
+### Carriers
+
+Listing of carrier codes with full names
+
+| Columns | Data Type | Description | Nullable |
+| ------------- |:-------------|:-------------|:-------------|
+| Code | String | IATA Carrier code | False |
+| Description | String | Name of the carrier | False |
+
+### Aircraft
+
+Information about planes by tail numbers.
+
+| Columns | Data Type | Description | Nullable |
+| ------------- |:-------------|:-------------|:-------------|
+| tailnum | String | Aircraft tail number | False |
+| type | String | Type of aircraft | True |
+| manufacturer | String | Name of the manufacturer | True |
+| issue_date | Date | Date of aircraft incorporated to service | True |
+| model | String | Aircraft model | True |
+| status | String | Status of the aircraft | True |
+| aircraft_type | String | Type of aircraft | True |
+| engine_type | String | Type of Engine | True |
+| year | Integer | Year of incorporation | True |
 
 
