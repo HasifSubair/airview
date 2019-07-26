@@ -1,3 +1,26 @@
+# AirView
+
+### Introduction
+
+The U.S. Department of Transportation's (DOT) Bureau of Transportation Statistics (BTS) tracks the on-time performance 
+of domestic flights operated by large air carriers. Summary information on the number of on-time, delayed, canceled and 
+diverted flights appears in DOT's monthly Air Travel Consumer Report, published about 30 days after the month's end, as 
+well as in summary tables posted on this website. Summary statistics and raw data are made available to the public at 
+the time the Air Travel Consumer Report is released.
+
+Source data can be found [here](http://stat-computing.org/dataexpo/2009/the-data.html)
+
+Supplemental data for airport and carrier can be found [here](http://stat-computing.org/dataexpo/2009/supplemental-data.html)
+
+Aircraft details can be found [here](https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download/)
+
+AirView project enhances the flight data by adding information on the Airports, Aircrafts and the Carrier information. 
+The datasets are combined and stored in a de-normalized format as parquet files in S3 or HDFS any file system.
+
+
+### Data Sets
+
+#### Flights
 | Columns | Data Type | Description | Nullable |
 | ------------- |:-------------|:-------------|:-------------|
 |Year | Integer | 1987-2008| False |
@@ -29,3 +52,8 @@
 |NASDelay | String |in minutes| True |
 |SecurityDelay | String | in minutes| True |
 |LateAircraftDelay | String | in minutes| True |
+
+
+
+
+The dataset can be later combined with weather and aircraft repair data to predict aircraft repair cycles.
