@@ -188,8 +188,7 @@ works very efficiently with spark.
 | LateAircraftDelay | String | in minutes| True |
 | AircraftManufacturer | String | Aircraft manufacturer name | True |
 | AircraftIssueDate | Date | Aircraft in service from date| True | 
-| AircraftModel | String | Aircraft model | True |
-| AircraftType | String | Aircraft type | True |           
+| AircraftModel | String | Aircraft model | True || AircraftType | String | Aircraft type | True |           
 | EngineType | String | Aircraft engine type | True |
 | OriginAirport | String | Origin airport name | True |
 | OriginCity | String | Origin airport city | True |
@@ -204,3 +203,7 @@ works very efficiently with spark.
 | DestinationLatitude | String | Destination airport latitude | True |
 | DestinationLongitude | String | Destination airport longitude | True |
 | Carrier | String | Name of the Carrier | True |
+
+### Running the application
+
+![](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
