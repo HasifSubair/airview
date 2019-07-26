@@ -204,13 +204,13 @@ works very efficiently with spark.
 | DestinationLongitude | String | Destination airport longitude | True |
 | Carrier | String | Name of the Carrier | True |
 
-### Running the application
+## Running the application
 
 ![](/images/pipeline.png)
 
 *Pipeline for running AirView project*
 
-#### Data ingestion
+### Data ingestion
 Executor class had 'ingest_data' method, which reads files from the input file/location and writes to the ouput 
 location. To execute data ingestion task execute the below command.
 
@@ -232,7 +232,7 @@ Different write modes are.
 4. 'ignore'     -   if data already exists, the save operation is expected to not save the
                                                 contents of the DataFrame and to not change the existing data. 
                                                 
-#### Quality Check
+### Quality Check
 
 Executor class had 'check_quality' method, checks the record count from the source and destination folders. To execute 
 data quality check, execute the below command.
@@ -240,29 +240,41 @@ data quality check, execute the below command.
 `python3 executor.py check_quality <SOURCE_PATH> <SOURCE_FORMAT> <DESTINATION_PATH> <DESTINATION_FORMAT>`
 
 
-#### Clean flight data
+### Clean flight data
 
 `python3 executor.py clean_flight_data <INPUT_PATH> <INPUT_FORMAT> <OUTPUT_PATH> <OUTPUT_FORMAT> <WRITE_MODE>`
 
 *Parameter WRITE_MODE is optional and is defaulted to 'error'.*
 
-#### Clean aircraft data
+### Clean aircraft data
 
 `python3 executor.py clean_aircraft_data <INPUT_PATH> <INPUT_FORMAT> <OUTPUT_PATH> <OUTPUT_FORMAT> <WRITE_MODE>` 
 
 *Parameter WRITE_MODE is optional and is defaulted to 'error'.*
 
-#### Enhance flight data
+### Enhance flight data
 
 All input data set must be of parquet format.
 
 `python3 executor.py enhance_flight_data <CLEAN_FLIGHT_DATA_PATH> <CLEAN_AIRCRAFT_DATA_PATH> <AIRPORT_DATA_PATH> 
 <CARRIER_DATA_PATH> <OUTPUT_FOLDER>`
 
-#### Quality Check
+### Quality Check
 
 `python3 executor.py quality_check <SOURCE_DATA_PATH> <DESTINATION_DATA_PATH>`
 
+### Run query dynamic queries against the files. 
+
+`python3 executor.py run_query <SOURCE_FILE_PATH> <SOURCE_FORMAT> <TEMP_TABLE_NAME> <QUERY> <NUMBER_OF_RECORDS>`
+
+
+
+## Sample queries to be run against the files.
+
+1. Sum of all delays by the carrier.
+
+`SELECT Carrier, SUM(CarrierDelay), SUM(WeatherDelay), SUM(NASDelay), SUM(SecurityDelay), SUM(LateAircraftDelay) 
+FROM flights GROUP BY(Carrier)`˚
 
  
  
